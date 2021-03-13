@@ -6,12 +6,12 @@ import { sign } from 'jsonwebtoken'
 import auth from '../auth/auth'
 
 class UserService {
-  public validateEmailExist (email: string): any {
+  public findUserByEmail (email: string): any {
     return UserSchema.findOne({ email })
   }
 
   public async login (body: any): Promise<any> {
-    const user: any = await UserSchema.findOne({ email: body.email })
+    const user: any = await this.findUserByEmail(body.email)
     if (!user) {
       throw new ResponseError('Usuário não encontrado.', Const.httpStauts.NOT_FOUND)
     }
@@ -29,7 +29,7 @@ class UserService {
   }
 
   public async saveUser (body: any) : Promise<any> {
-    const emailExists = await this.validateEmailExist(body.email)
+    const emailExists = await this.findUserByEmail(body.email)
 
     if (emailExists) {
       throw new ResponseError('Usuário já possui cadastro', Const.httpStauts.BAD_REQUEST)
