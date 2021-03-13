@@ -1,0 +1,44 @@
+import UserSchema from '../schemas/user-schema'
+import ResponseError from '../errors/response-error'
+import Const from '../utils/const'
+import { hash, compare } from 'bcryptjs'
+import { sign } from 'jsonwebtoken'
+import auth from '../config/auth'
+
+class UserService {
+  public validateEmailExist (email: string): any {
+    return UserSchema.findOne({ email })
+  }
+
+  public async login (body: any): Promise<any> {
+    const user: any = await UserSchema.findOne({ email: body.email })
+    if (!user) {
+      throw new ResponseError('Usuário não encontrado.', Const.httpStauts.NOT_FOUND)
+    }
+
+    const passwordMatched = await compare(body.password, user.password)
+
+    if (!passwordMatched) {
+      throw new ResponseError('Senha/E-mail incorretos', Const.httpStauts.BAD_REQUEST)
+    }
+    const token = sign({
+      subject: user._id,
+      expiresIn: auth.jwt.expiresIn
+    }, auth.jwt.secret)
+    return { token }
+  }
+
+  public async saveUser (body: any) : Promise<any> {
+    const emailExists = await this.validateEmailExist(body.email)
+
+    if (emailExists) {
+      throw new ResponseError('Usuário já possui cadastro', Const.httpStauts.BAD_REQUEST)
+    }
+    const hashedPassword = await hash(body.password, 8)
+    body.password = hashedPassword
+    const user: any = await UserSchema.create(body)
+    user.password = ''
+    return user
+  }
+}
+export default new UserService()

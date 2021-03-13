@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import * as dotenv from 'dotenv'
-import routes from './routers/Router'
+import routes from './routers/routers'
 dotenv.config()
 
 class App {
@@ -10,8 +10,8 @@ class App {
 
     public constructor () {
       this.express = express()
-      this.middlewares()
       this.database()
+      this.middlewares()
     }
 
     private middlewares (): void {

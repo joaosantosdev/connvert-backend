@@ -16,5 +16,7 @@ module.exports = {
   plugins: [
     '@typescript-eslint'
   ],
-  rules: {}
+  rules: {
+    'no-template-curly-in-string': 'off'
+  }
 }
