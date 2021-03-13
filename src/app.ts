@@ -3,6 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import * as dotenv from 'dotenv'
 import routes from './routers/routers'
+import authMiddleware from './auth/auth-validator'
 dotenv.config()
 
 class App {

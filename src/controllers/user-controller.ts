@@ -23,7 +23,6 @@ export default class UserController {
     let user = null
     try {
       user = await userService.saveUser(request.body)
-      console.log(user)
     } catch (error) {
       response.status(error.status).json(error)
     }

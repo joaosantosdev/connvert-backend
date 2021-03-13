@@ -3,7 +3,7 @@ import ResponseError from '../errors/response-error'
 import Const from '../utils/const'
 import { hash, compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
-import auth from '../config/auth'
+import auth from '../auth/auth'
 
 class UserService {
   public validateEmailExist (email: string): any {
