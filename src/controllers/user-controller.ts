@@ -14,7 +14,7 @@ export default class UserController {
       data = await userService.login(data.item)
       return response.status(Const.httpStauts.OK).json(data)
     } catch (error) {
-      return response.status(error.status).json(error)
+      return response.status((error.status || 500)).json(error)
     }
   }
 

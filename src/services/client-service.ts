@@ -16,6 +16,11 @@ class ClientService {
     return data
   }
 
+  public async getDebtsByClientAll (clientId: any): Promise<any> {
+    const debts = await DebtSchema.find({ client_id: clientId })
+    return debts
+  }
+
   public async getDebtsByClient (clientId: string, pagination:any): Promise<any> {
     const debts = await DebtSchema.paginate({ client_id: parseInt(clientId) },
       {

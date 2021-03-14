@@ -5,7 +5,7 @@ import debService from '../services/debt-service'
 class DebtController {
   public async saveDebt (request: Request, response: Response): Promise<Response> {
     try {
-      let data = debService.validateDebt(request.body)
+      let data = await debService.validateDebt(request.body)
       data = await debService.saveDebt(data)
       return response.status(Const.httpStauts.OK).json(data)
     } catch (error) {

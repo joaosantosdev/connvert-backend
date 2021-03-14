@@ -1,0 +1,15 @@
+version: "3"
+services:
+  backend:
+    image: apiconnvert
+    build: .
+    ports:
+      - 9999:9999
+    links:
+      - db
+  db:
+    image: mongo:latest
+    ports:
+        - 27017:27017
+    environment:
+      - AUTH=no

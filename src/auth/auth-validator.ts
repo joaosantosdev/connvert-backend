@@ -5,7 +5,7 @@ import auth from './auth'
 import ResponseError from '../errors/response-error'
 
 function authValidator (request: Request, response: Response, next : NextFunction) {
-  const authHeader = request.headers.authorization
+  const authHeader = (request.headers.authorization || '')
   const status = Const.httpStauts.UNATHORIZED
   if (!authHeader) {
     response.status(status).send(new ResponseError('Token JWT não está presente.', status))
