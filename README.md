@@ -8,7 +8,7 @@
 #### Desafio  
 * Desenvolver uma aplicação de gerenciamento de dívidas.
 
-####Outras partes que compõem a aplicação
+#### Outras partes que compõem a aplicação
 
 - [Frontend](https://github.com/joaosantosdev/connvert-frontend)
 
